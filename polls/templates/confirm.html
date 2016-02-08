@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load contains %}
+{% load getseverity %}
+{% block containerheader %}
+<h2>Step 5/5</h2>
+<h3 style="color: #FF0000;font-size: 22px;">Attention: You should copy this summary of your submitted data into "Notes" field in ITSM page!</h3>
+{% endblock %}
+
+{% block framemain %}
+<div class="maindiv">
+	<div class="section" id="app-sec">
+		<h4>Application:</h4>
+		<hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="50%" align="left"/>
+		<table cellspacing="500">
+			<tr>
+				<td>AppName: </td>
+				<td> {{request.session.app.appname}}</td>
+			</tr>
+			<tr>
+				<td>Manager: </td>
+				<td> {{request.session.app.manager}}</td>
+			</tr>
+			<tr>
+				<td>Ownership: </td>
+				<td> {{request.session.app.ownership}}</td>
+			</tr>
+			<tr>
+				<td>Developer: </td>
+				<td> {{request.session.app.developer}}</td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	<div class="section" id="server-sec">
+		<h4>Server:</h4>
+		{% for key, val in request.session.items %}
+			{% if key|contains:"server" %}
+				<hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="50%" align="left"/>
+				<table>
+					<tr>
+						<td>Host Name: </td>
+						<td> {{val.hostname}}</td>
+					</tr>
+					<tr>
+						<td>IP: </td>
+						<td> {{val.ipaddr}}</td>
+					</tr>
+					<tr>
+						<td>Datacenter: </td>
+						<td> {{val.datacenter}}</td>
+					</tr>
+					<tr>
+						<td>Status: </td>
+						<td> {{val.status}}</td>
+					</tr>
+					<tr>
+						<td>Description: </td>
+						<td> {{val.description}}</td>
+					</tr>
+				</table>
+			{% endif %}			
+		{%endfor%}
+	</div>
+	<br>
+	<div class="section" id="process-sec">
+		<h4>Process:</h4>
+		{% for key, val in request.session.items %}
+			{% if key|contains:"process" %}
+				<hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="50%" align="left"/>
+				<table>
+					<tr>
+						<td>Process Name: </td>
+						<td> {{val.pname}}</td>
+					</tr>
+					<tr>
+						<td>keywords: </td>
+						<td> {{val.keywords}}</td>
+					</tr>
+					<tr>
+						<td>Severity: </td>
+						<td> {{val.severity}}</td>
+					</tr>
+					<tr>
+						<td>Starttime: </td>
+						<td> {{val.starttime}}</td>
+					</tr>
+					<tr>
+						<td>Endtime: </td>
+						<td> {{val.endtime}}</td>
+					</tr>
+					<tr>
+						<td>monitortime: </td>
+						{% if val.monitortime == 1 %}
+                        <td>All year</td>
+                        {% else %}
+                        <td>All year except holidays</td>
+                    	{% endif %}
+					</tr>
+					<tr>
+						<td>instance: </td>
+						<td> {{val.instance}}</td>
+					</tr>
+					<tr>
+						<td>Remark: </td>
+						<td> {{val.remark}}</td>
+					</tr>
+				</table>
+			{% endif %}			
+		{%endfor%}
+	</div>
+	<br>
+	<div class="section" id="log-sec">
+		<h4>Log:</h4>
+		{% for key, val in request.session.items %}
+			{% if key|contains:"log" %}
+				<hr style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="50%" align="left"/>
+				<table>
+					<tr>
+						<td>Log Path: </td>
+						<td> {{val.path}}</td>
+					</tr>
+					<tr>
+						<td>Starttime: </td>
+						<td> {{val.starttime}}</td>
+					</tr>
+					<tr>
+						<td>Endtime: </td>
+						<td> {{val.endtime}}</td>
+					</tr>
+					<tr>
+						<td>monitortime: </td>
+						{% if val.monitortime == 1 %}
+                        <td>All year</td>
+                        {% else %}
+                        <td>All year except holidays</td>
+                    	{% endif %}
+					</tr>
+					{% for k, v in val.items %}
+						{% if k|contains:"keywords"  %}
+							<tr>
+								<td>Keywords: </td>
+								<td> {{v}}</td>
+							</tr>
+							<tr>
+								<td>Severity: </td>
+								<td> {{val|getseverity:k}}</td>
+							</tr>
+						{% endif %}
+					{% endfor%}
+					<tr>
+						<td>Remark: </td>
+						<td> {{val.remark}}</td>
+					</tr>
+				</table>
+			{% endif %}			
+		{%endfor%}
+	</div>
+	<br>
+	<!--<a href="finish.html"><input type="button" class="buttom finish" name="finish" id="finish" tabindex="5" value="Finish"/></a> -->
+	<a href="https://bmcitsm.sso.org.nasdaqomx.com/arsys/forms/remedyar.mgm.om/SRS:ServiceRequestConsole/?mode=submit&F303900000=4&F303900900=SRGAA5V0H0O3VAN4V0DHO5X5W6Y01J&F303906700=0&F303902000=0&F303902100=0" target="_blank"><input type="button" class="buttom finish" name="itsm" id="itsm" tabindex="5" value="Open an ITSM ticket"/></a>
+</div>
+{% endblock %}

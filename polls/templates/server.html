@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block containerheader %}
+<h2>Step 2/5</h2>
+{% endblock %}
+{% load staticfiles %}
+{% block scripts %}
+	<script src="{% static 'polls/js/addform.js' %}" type="text/javascript"></script>
+{% endblock %}
+{% block framemain %}
+	<div class="maindiv">
+		<div class="form">
+			<form id="serverform" action="" method="Post">{% csrf_token %}
+				<div class="InputsWrapper" id="InputsWrapper">
+					{% if errors %}
+							<p class="error_message">
+							{% for error in errors %}{{ error }}<br>{% endfor %}
+						    </p>
+					{% endif %}
+					<div class="Inputs0" id="Inputs0">
+						<p class="FormItemName"><label for="HostName">Host Name</label></p>
+						<input id="hostname0" name="hostname0" placeholder="Hostname" required="" tabindex="1" type="text"/>
+						<label>*</label>
+					<p class="FormItemName"><label for="IP">IP Address</label></p>
+					<input id="ipaddr0" name="ipaddr0" placeholder="IP Address" required="" tabindex="1" type="text"/>
+					<label>*</label>
+				<fieldset>
+					<label for="Datacenter">Datacenter</label><label class="special" for="Status">Status</label>
+					<br>
+					<select class="select-style special" name="datacenter0" id="datacenter0" tabindex="1">
+						{% for choice, label in form.fields.datacenter.choices %}
+							<option value="{{choice}}">{{choice}}</option>
+							{%endfor%}
+						</select>
+						<label>*</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<select class="select-style special" name="status0" id="status0" tabindex="1">
+							{% for choice, label in form.fields.status.choices %}
+								<option value="{{choice}}">{{choice}}</option>
+								{%endfor%}
+							</select>
+							<label>*</label>
+						</fieldset>
+						<p class="FormItemName"><label for="Description">Description</label></p>
+						<textarea id="description0" name="description0" placeholder="Description" tabindex="1" type="textarea"></textarea>
+					</div>
+					<br>
+				</div>
+				
+				<br>
+				<input class="buttom" name="reset" id="reset" tabindex="5" value="Reset" type="reset"/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input class="buttom" name="AddForm" id="AddForm" tabindex="5" value="Add New Server" type="button"/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input class="buttom" name="submit" id="submit" tabindex="5" value="Next: Processes Info" type="submit"/>
+			</form>
+		</div>
+	</div>
+{% endblock %}

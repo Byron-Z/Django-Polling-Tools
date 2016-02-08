@@ -1,0 +1,65 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h2>Search</h2>
+
+<form method="Post" id="searchform" action="">{% csrf_token %}
+    <table>
+        {{ form.as_table }}
+        <tr>
+            <td> </td>
+            <td>
+                <input type="submit" name="process" id="process" value="Search Process"/>
+                <input type="submit" name="log" id="log" value="Search Log"/>
+                <input type="button" value="Export Processes Information" onclick="location.href='export_processes'"/>
+                <input type="button" value="Export Logs Information" onclick="location.href='export_logs'"/>
+            </td>
+        </tr>
+    </table>
+</form>
+    {% if appid %}
+        <h3>Results</h3>
+
+        <table>
+            <tr>
+                <th>Datacenter</th>
+                <th>Hostname</th>
+                <th>Ip Address</th>
+                <th>Server Status</th>
+                <th>Description</th>
+                <th>Process</th>
+                <th>Monitor Time</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Instance</th>
+                <th>Severity</th>
+                <th>Keywords</th>
+                <th>Remark</th>
+            </tr>
+            {% for row in data %}
+                <tr>
+                    <td>{{row.0}}</td>
+                    <td>{{row.1}}</td>
+                    <td>{{row.2}}</td>
+                    <td>{{row.3}}</td>
+                    <td>{{row.4}}</td>
+                    <td>{{row.5}}</td>
+                    {% if row.6 == 1 %}
+                        <td>All year</td>
+                        {% else %}
+                        <td>All year except holidays</td>
+                    {% endif %}
+                    <td>{{row.7}}</td>
+                    <td>{{row.8}}</td>
+                    <td>{{row.9}}</td>
+                    <td>{{row.10}}</td>
+                    <td>{{row.11}}</td>
+                    <td>{{row.12}}</td>
+                </tr>
+        
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+        
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block containerheader %}
+<h2>Step 4/5</h2>
+{% endblock %}
+{% load staticfiles %}
+{% block scripts %}
+	<script src="{% static 'polls/js/addform.js' %}" type="text/javascript"></script>
+	<script src="{% static 'polls/js/addlogkeywords.js' %}" type="text/javascript"></script>
+	<script src="{% static 'polls/js/redirect.js' %}" type="text/javascript"></script>
+{% endblock %}
+{% block framemain %}
+	<div class="maindiv">
+		<div class="form">
+			<form id="logform" action="" method="Post">{% csrf_token %}
+				<div class="InputsWrapper" id="InputsWrapper">
+					{% if errors %}
+						<p class="error_message">
+						{% for error in errors %}{{ error }}<br>{% endfor %}
+					</p>
+					{% endif %}
+					<div class="Inputs0" id="Inputs0">
+						<p class="FormItemName"><label for="Log Path">Log Path (Absolute Path)</label></p>
+						<input id="path0" name="path0" placeholder="Log Path" required="" tabindex="1" type="text"/>
+						<label>*</label>
+						<p class="FormItemName"><label for="Monitor Time">Monitor Time</label></p>
+						<select class="select-style" name="monitortime0" id="monitortime0" tabindex="1">
+							{% for choice, label in logform.fields.monitortime.choices %}
+								<option value="{{choice}}">{{label}}</option>
+								{%endfor%}
+						</select>
+						<label>*</label>
+						<p class="FormItemName"><label for="Start Time">Start Time(HH:MM:SS)</label></p>
+						<input id="starttime0" name="starttime0" placeholder="Start Time" required="" tabindex="1" type="text"/>
+						<label>*</label>
+						<p class="FormItemName"><label for="End Time">End Time(HH:MM:SS)</label></p>
+						<input id="endtime0" name="endtime0" placeholder="End Time" required="" tabindex="1" type="text"/>
+						<label>*</label>
+						<p class="FormItemName"><label for="Remark">Remark</label></p>
+						<textarea id="remark0" name="remark0" placeholder="Remark" tabindex="1" type="textarea"></textarea>
+						<br>
+						<div class="keywordsWrapper0" id="keywordsWrapper0">
+							<formset class="keyword00" id="keyword00">
+								<label for="Keywords">Keywords</label>
+								<label class="logstring" for="Severity">Severity</label>
+								<br>
+								<input class="logstring" id="keywords00" name="keywords00" placeholder="Keywords" required="False" tabindex="1" type="text"/>
+								<label>*</label>
+								<select class="select-style logstring" name="severity00" id="severity00" tabindex="1">
+									{% for choice, label in logstringform.fields.severity.choices %}
+										<option value="{{choice}}">{{label}}</option>
+										{%endfor%}
+								</select>
+								<label>*</label>
+							</formset>
+							<input class="buttom Add" name="addstring0" id="addstring0" value="Add" type="button"/>
+						</div>
+					</div>
+					<br>
+				</div>
+				<br>
+				<input class="buttom" name="AddForm" id="AddForm" tabindex="5" value="Add New Log" type="button"/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input class="buttom" name="reset" id="reset" tabindex="5" value="Reset" type="reset"/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input class="buttom finish" name="finish" id="finish" tabindex="5" value="Skip & Submit" type="button"/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input class="buttom" name="submit" id="submit" tabindex="5" value="Submit" type="submit"/>
+			</form>
+				</div>
+			</div>
+{% endblock %}

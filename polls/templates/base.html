@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<html>
+	<head>
+		{% block header %} {% endblock %}
+		<link rel="stylesheet" type="text/css" href="{% static 'polls/main.css' %}" media="all" />
+		<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" media="all" />
+		<title>{% block title %}Welcome{% endblock %}</title>
+	</head>
+	<body>
+		<script src="/static/polls/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+		{% block scripts %}
+			<!--custom scripts-->
+		{% endblock %}
+		<div class="container">
+			<div class="frameheader">
+				{% block frameheader %}
+					<a href="/"><img src="/static/polls/images/nasdaq_logo.png"></img></a>
+				{% endblock %}
+			</div>
+			
+		<header><h1>Monitor Information</h1>{% block containerheader %}{% endblock %}</header>
+		<div class="framemain">{% block framemain %} {% endblock %}</div>
+		<div class="framefooter">{% block framefooter %} {% endblock %}</div>
+	</div>
+</body>
+</html>

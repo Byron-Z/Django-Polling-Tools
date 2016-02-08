@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block scripts %}
+<script src="/static/polls/js/appselect.js" type="text/javascript"></script>
+{% endblock %}
+{% block containerheader %}
+<h2>Step 1/5</h2>
+{% endblock %}
+{% block framemain %}
+<div class="maindiv">
+	<div class="form">
+		<form id="appform" action="" method="post">{% csrf_token %}
+			<p class="FormItemName"><label for="Application Name">Application Name</label></p>
+			<select class="select-style" name="appname" id="appname" onChange="getAppOptions(this.value);" tabindex="1">
+				{% for label, choice in form.fields.appname.choices %}
+					<option value="{{label}}">{{choice}}</option>
+				{%endfor%}
+			</select>
+			<p class="FormItemName"><label for="Manager">Manager</label></p>
+			<select class="select-style" name="manager" id="manager" tabindex="1">
+				{% for label, choice in form.fields.manager.choices %}
+					<option value="{{choice}}">{{choice}}</option>
+				{%endfor%}
+			</select>
+			<p class="FormItemName"><label for="Ownership">Ownership</label></p>
+			<select class="select-style" name="ownership" id="ownership" tabindex="1">
+				{% for label, choice in form.fields.ownership.choices %}
+					<option value="{{choice}}">{{choice}}</option>
+				{%endfor%}
+			</select>
+			<p class="FormItemName"><label for="Priority">Priority</label></p>
+			<select class="select-style" name="priority" id="priority" tabindex="1">
+				{% for label, choice in form.fields.priority.choices %}
+					<option value="{{choice}}">{{choice}}</option>
+				{%endfor%}
+			</select>
+			<p class="FormItemName"><label for="Developer">Developer Name(use ';' to separate each name)</label></p>
+			<input id="developer" name="developer" placeholder="First and last name" required="" tabindex="1" type="text"/>
+			<label>*</label>
+			{% if form.developer.errors %}
+              <p class="error_message">
+                {% for error in form.developer.errors %}{{ error }}{% endfor %}
+              </p>
+            {% endif %}
+			<br>
+			<br>
+			<br>
+			<input class="buttom" name="reset" id="reset" tabindex="5" value="Reset" type="reset"/>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input class="buttom" name="submit" id="submit" tabindex="5" value="Next: Server Info" type="submit"/>
+
+		</form>
+	</div>
+</div>
+{% endblock %}

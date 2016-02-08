@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block containerheader %}
+	<h2>Step 3/5</h2>
+{% endblock %}
+{% load staticfiles %}
+{% block scripts %}
+	<script src="{% static 'polls/js/addform.js' %}" type="text/javascript"></script>
+	<script src="{% static 'polls/js/redirect.js' %}" type="text/javascript"></script>
+{% endblock %}
+{% block framemain %}
+	<div class="maindiv">
+		<div class="form">
+			<form id="processform" action="" method="Post">{% csrf_token %}
+				<div class="InputsWrapper" id="InputsWrapper">
+					{% if errors %}
+						<p class="error_message">
+						{% for error in errors %}{{ error }}<br>{% endfor %}
+					</p>
+				{% endif %}
+				<div class="Inputs0" id="Inputs0">
+					<p class="FormItemName"><label for="Process Name">Process Name</label></p>
+					<input id="pname0" name="pname0" placeholder="Process Name" required="" tabindex="1" type="text"/>
+					<label>*</label>
+					<fieldset>
+						<label for="Monitor Time">Monitor Time</label>
+						<label  class="special" for="Severity">Severity</label>
+						<br>
+						<select class="select-style special" name="monitortime0" id="monitortime0" tabindex="1">
+							{% for choice, label in form.fields.monitortime.choices %}
+								<option value="{{choice}}">{{label}}</option>
+								{%endfor%}
+						</select>
+						<label>*</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<select class="select-style special" name="severity0" id="severity0" tabindex="1">
+							{% for choice, label in form.fields.severity.choices %}
+								<option value="{{choice}}">{{choice}}</option>
+								{%endfor%}
+							</select>
+							<label>*</label>
+						</fieldset>
+						<p class="FormItemName"><label for="Start Time">Start Time(HH:MM:SS)</label></p>
+						<input id="starttime0" name="starttime0" placeholder="Start Time" required="" tabindex="1" type="text"/>
+						<label>*</label>
+						<p class="FormItemName"><label for="End Time">End Time(HH:MM:SS)</label></p>
+						<input id="endtime0" name="endtime0" placeholder="End Time" required="" tabindex="1" type="text"/>
+						<label>*</label>
+						<p class="FormItemName"><label for="Instance">Instance</label></p>
+						<input id="instance0" name="instance0" placeholder="Instance" required="" tabindex="1" type="text"/>
+						<label>*</label>
+						<p class="FormItemName"><label for="Keywords">Keywords</label></p>
+						<input id="keywords0" name="keywords0" placeholder="Keywords" required="" tabindex="1" type="text"/>
+						<label>*</label>
+						<br>
+						<p class="FormItemName"><label for="Remark">Remark</label></p>
+						<textarea id="remark0" name="remark0" placeholder="Remark" type="textarea"></textarea>
+						</div>
+						<br>
+					</div>
+					<br>
+					<input class="buttom" name="AddForm" id="AddForm" tabindex="5" value="Add New Process" type="button"/>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="buttom" name="reset" id="reset" tabindex="5" value="Reset" type="reset"/>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="buttom skip" name="skip" id="skip" tabindex="5" value="Skip" type="button"/>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="buttom" name="submit" id="submit" tabindex="5" value="Next" type="submit"/>
+				</form>
+			</div>
+		</div>
+	{% endblock %}

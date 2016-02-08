@@ -1,0 +1,47 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h2>Tasks Complete Status</h2>
+
+<form method="Post" id="searchform" action="">{% csrf_token %}
+    <table>
+        {{ form.as_table }}
+        <tr>
+            <td> </td>
+            <td>
+                <input type="submit" name="search" id="search" value="Search"/>
+                <input type="button" value="Export Tasks Progress" onclick="location.href='export_tasks'"/>
+            </td>
+        </tr>
+    </table>
+</form>
+    {% if click %}
+        <h3>Results</h3>
+
+        <table>
+            <tr>
+                <th>AppID</td>
+                <th>AppName</td>
+                {% if num|length == 61 %}
+                    {% for rowname in descript%}
+                        <th>{{rowname}}</td>
+                    {% endfor %}
+                {% else %}
+                    {% for i in num%}
+                        <th>Task{{i}}</td>
+                    {% endfor %}
+                {% endif %}
+            </tr>
+            {% for items in data %}
+                <tr>
+                    <td>{{items.0}}</td>
+                    <td>{{items.1}}</td>
+                    {% for item in items.2 %}
+                        <td>{{item}}</td>
+                    {% endfor %}
+                </tr>
+        
+            {% endfor %}
+        </table>
+    {% endif %}
+        
+{% endblock %}
